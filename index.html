@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bookshelf App - Interactive</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/gif" href="assets/icons8-book.gif" />
+  </head>
+  <body>
+    <div class="app-container">
+      <div class="container">
+        <!-- Header -->
+        <header class="header">
+          <div class="header-content">
+            <i class="fas fa-book-open header-icon"></i>
+            <h1 class="header-title">Bookshelf App</h1>
+          </div>
+          <p class="header-subtitle">Kelola koleksi buku Anda dengan mudah</p>
+        </header>
+
+        <div class="main-grid">
+          <!-- Left Column - Forms -->
+          <div class="forms-column">
+            <!-- Add Book Form -->
+            <div class="card form-card">
+              <div class="card-header">
+                <i class="fas fa-plus card-icon"></i>
+                <h2 class="card-title">Tambah Buku Baru</h2>
+              </div>
+              <div class="card-content">
+                <!-- Tambahkan id dan data-testid DI BAWAH INI -->
+                <form id="bookForm" class="book-form" data-testid="bookForm">
+                  <div class="form-group">
+                    <label for="bookFormTitle" class="form-label">Judul</label>
+                    <input
+                      type="text"
+                      id="bookFormTitle"
+                      class="form-input"
+                      data-testid="bookFormTitleInput"
+                      placeholder="Masukkan judul buku"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="bookFormAuthor" class="form-label"
+                      >Penulis</label
+                    >
+                    <input
+                      type="text"
+                      id="bookFormAuthor"
+                      class="form-input"
+                      data-testid="bookFormAuthorInput"
+                      placeholder="Masukkan nama penulis"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="bookFormYear" class="form-label">Tahun</label>
+                    <input
+                      type="number"
+                      id="bookFormYear"
+                      class="form-input"
+                      data-testid="bookFormYearInput"
+                      placeholder="Tahun terbit"
+                      required
+                    />
+                  </div>
+                  <div class="checkbox-group">
+                    <input
+                      type="checkbox"
+                      id="bookFormIsComplete"
+                      class="form-checkbox"
+                      data-testid="bookFormIsCompleteCheckbox"
+                    />
+                    <label for="bookFormIsComplete" class="checkbox-label"
+                      >Selesai dibaca</label
+                    >
+                  </div>
+                  <button
+                    type="submit"
+                    class="btn btn-primary btn-full"
+                    data-testid="bookFormSubmitButton"
+                  >
+                    <i class="fas fa-plus"></i>
+                    <span id="submitText"
+                      >Masukkan ke rak Belum selesai dibaca</span
+                    >
+                  </button>
+                </form>
+              </div>
+            </div>
+
+            <!-- Search Form -->
+            <div class="card search-card">
+              <div class="card-header">
+                <i class="fas fa-search card-icon"></i>
+                <h2 class="card-title">Cari Buku</h2>
+              </div>
+              <div class="card-content">
+                <form
+                  id="searchBook"
+                  class="search-form"
+                  data-testid="searchBookForm"
+                >
+                  <div class="form-group">
+                    <label for="searchBookTitle" class="form-label"
+                      >Judul</label
+                    >
+                    <input
+                      type="text"
+                      id="searchBookTitle"
+                      class="form-input"
+                      data-testid="searchBookFormTitleInput"
+                      placeholder="Cari berdasarkan judul..."
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    class="btn btn-secondary btn-full"
+                    data-testid="searchBookFormSubmitButton"
+                  >
+                    <i class="fas fa-search"></i>
+                    Cari
+                  </button>
+                </form>
+              </div>
+            </div>
+
+            <!-- Stats Card -->
+            <div class="card stats-card">
+              <div class="card-content">
+                <div class="stats-grid">
+                  <div class="stat-item">
+                    <div class="stat-number" id="incompleteCount">0</div>
+                    <div class="stat-label">Belum Selesai</div>
+                  </div>
+                  <div class="stat-item">
+                    <div class="stat-number" id="completeCount">0</div>
+                    <div class="stat-label">Selesai</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column - Book Lists -->
+          <div class="books-column">
+            <!-- Incomplete Books -->
+            <div class="book-section">
+              <div class="section-header">
+                <i class="fas fa-book-open section-icon"></i>
+                <h2 class="section-title">Belum Selesai Dibaca</h2>
+                <span class="badge badge-orange" id="incompleteBadge">0</span>
+              </div>
+              <div
+                id="incompleteBookList"
+                class="book-list"
+                data-testid="incompleteBookList"
+              >
+                <div class="empty-state" id="incompleteEmpty">
+                  <i class="fas fa-book-open empty-icon"></i>
+                  <p class="empty-text">
+                    Belum ada buku yang belum selesai dibaca
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Complete Books -->
+            <div class="book-section">
+              <div class="section-header">
+                <i class="fas fa-book section-icon"></i>
+                <h2 class="section-title">Selesai Dibaca</h2>
+                <span class="badge badge-green" id="completeBadge">0</span>
+              </div>
+              <div
+                id="completeBookList"
+                class="book-list"
+                data-testid="completeBookList"
+              >
+                <div class="empty-state" id="completeEmpty">
+                  <i class="fas fa-book empty-icon"></i>
+                  <p class="empty-text">Belum ada buku yang selesai dibaca</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pastikan nama file JS sesuai dengan file logika utama kamu -->
+    <script src="main.js"></script>
+  </body>
+</html>
